@@ -13,7 +13,7 @@ import {Container, Grid, Paper} from "@material-ui/core";
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
-type TodolistType = {
+export type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -50,13 +50,7 @@ function App() {
     })
 
 
-    function changeFilter(filterValue: FilterValuesType, todoListId: string) {
-        const todoList = todoLists.find(tl => tl.id === todoListId)
-        if (todoList) {
-            todoList.filter = filterValue
-            setTodoLists([...todoLists])
-        }
-    }
+
 
     function removeTask(taskId: string, todoListId: string) {
         tasks[todoListId] = tasks[todoListId].filter(t => t.id !== taskId)
@@ -91,7 +85,7 @@ function App() {
         }
     }
 
-    function removeTodoList(id: string) {
+     function removeTodoList(id: string) {
         setTodoLists(todoLists.filter(tl => tl.id != id))
         delete tasks[id]
         setTasks({...tasks})
@@ -118,6 +112,14 @@ function App() {
             setTodoLists([...todoLists])
         }
 
+    }
+
+    function changeFilter(filterValue: FilterValuesType, todoListId: string) {
+        const todoList = todoLists.find(tl => tl.id === todoListId)
+        if (todoList) {
+            todoList.filter = filterValue
+            setTodoLists([...todoLists])
+        }
     }
 
     return (
