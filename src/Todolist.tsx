@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react'
-import {FilterValuesType} from "./App";
+import {FilterValuesType} from "./AppWithRedux";
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
 import {Button, ButtonGroup, Checkbox, IconButton} from '@material-ui/core';
@@ -27,7 +27,6 @@ type PropsType = {
 
 
 export function Todolist(props: PropsType) {
-
 
     const tasks = props.tasks.map(taskObj => {
         const removeTask = () => props.removeTask(taskObj.id, props.id)
