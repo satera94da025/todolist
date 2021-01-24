@@ -28,6 +28,9 @@ export type changeTaskTitleActionType = {
     todolistId: string
 }
 
+
+const initialState: TasksStateType = {}
+
 type ActionsType = removeActionType |
     addTaskActionType |
     changeTaskStatusActionType |
@@ -36,7 +39,7 @@ type ActionsType = removeActionType |
     RemoveTodolistActionType
 
 
-export const tasksReducer = (state: TasksStateType, action: ActionsType) => {
+export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType) => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             let copyState = {...state}
@@ -50,27 +53,15 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType) => {
             return copyState
         }
         case "CHANGE-TASK-STATUS": {
-            return {
-                ...state,
-                [action.todolistId]: state[action.todolistId].map(task => {
-                    if (task.id !== action.taskId) {
-                        return task
-                    } else {
-                        return {...task, isDone: action.isDone}
-                    }
-                })
-            }
+            state[action.todolistId] = state[action.todolistId]
+                .map(t => t.id === action.taskId ? {...t, isDone: action.isDone} : t)
+            return ({...state})
         }
         case "CHANGE-TASK-TITLE": {
-            return {
-                ...state,
-                [action.todolistId]: state[action.todolistId].map(task => {
-                    if (task.id !== action.taskId) {
-                        return task
-                    } else {
-                        return {...task, title: action.title}
-                    }
-                })
+            {
+                state[action.todolistId] = state[action.todolistId]
+                    .map(t => t.id === action.taskId ? {...t, title: action.title} : t)
+                return ({...state})
             }
         }
         case "ADD-TODOLIST": {
@@ -84,7 +75,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType) => {
             delete copyState[action.id]
             return copyState
         default:
-            throw new Error('i dont understand this type')
+            return state
     }
 }
 
