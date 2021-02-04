@@ -31,7 +31,7 @@ export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-function App() {
+const App = React.memo (() => {
 
 
     let todoLists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todoLists)
@@ -120,6 +120,6 @@ function App() {
             </Container>
         </div>
     )
-}
+})
 
 export default App;

@@ -29,7 +29,15 @@ type PropsType = {
 
 export const Todolist = React.memo((props: PropsType) => {
 
-    const tasks = props.tasks.map(taskObj => <Task todoListId={props.id} changeStatus={props.changeStatus}
+    let tasksForTodoList = props.tasks
+    if (props.filter === 'active') {
+        tasksForTodoList = props.tasks.filter(task => !task.isDone)
+    }
+    if (props.filter === 'completed') {
+        tasksForTodoList = props.tasks.filter(task => task.isDone)
+    }
+
+    const tasks = tasksForTodoList.map(taskObj => <Task todoListId={props.id} changeStatus={props.changeStatus}
                                                    removeTask={props.removeTask} changeTaskTitle={props.changeTaskTitle}
                                                    task={taskObj}
                                                    key={props.id}/>)
@@ -44,14 +52,6 @@ export const Todolist = React.memo((props: PropsType) => {
     const changeTodoListTitle = useCallback((title: string) => {
         props.changeTodoListTitle(title, props.id)
     }, [props.changeTodoListTitle, props.id])
-
-
-    if (props.filter === 'active') {
-        props.tasks.filter(task => !task.isDone)
-    }
-    if (props.filter === 'completed') {
-        props.tasks.filter(task => task.isDone)
-    }
 
 
     return (
