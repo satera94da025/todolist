@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import { Todolist} from "./Todolist";
 import AddItemForm from "./AddItemForm";
@@ -12,8 +12,8 @@ import {Container, Grid, Paper} from "@material-ui/core";
 import {
     AddTodolistAC,
     ChangeTodoListAC,
-    ChangeTodoListFilterAC, FilterValuesType,
-    RemoveTodolistAC, TodolistDomainType,
+    ChangeTodoListFilterAC, fetchTodolistTC,  FilterValuesType,
+    RemoveTodolistAC,  TodolistDomainType,
 } from "./state/todolists-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -33,8 +33,11 @@ const App = React.memo (() => {
 
     let todoLists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todoLists)
     let tasks = useSelector<AppRootStateType,TasksStateType>(state => state.tasks)
-
     const dispatch = useDispatch()
+
+    useEffect(() => {
+            dispatch(fetchTodolistTC)
+    }, [])
 
     const removeTask= useCallback((taskId: string, todoListId: string) =>{
         dispatch(removeTaskAC(taskId, todoListId))
