@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import './App.css';
-import {TaskType, Todolist} from "./Todolist";
+import { Todolist} from "./Todolist";
 import AddItemForm from "./AddItemForm";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,20 +12,17 @@ import {Container, Grid, Paper} from "@material-ui/core";
 import {
     AddTodolistAC,
     ChangeTodoListAC,
-    ChangeTodoListFilterAC,
-    RemoveTodolistAC,
+    ChangeTodoListFilterAC, FilterValuesType,
+    RemoveTodolistAC, TodolistDomainType,
 } from "./state/todolists-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
+import {TaskStatuses, TaskType} from "./api/todolist-api";
 
-export type FilterValuesType = 'all' | 'active' | 'completed'
 
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
+
+
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -34,7 +31,7 @@ export type TasksStateType = {
 const App = React.memo (() => {
 
 
-    let todoLists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todoLists)
+    let todoLists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todoLists)
     let tasks = useSelector<AppRootStateType,TasksStateType>(state => state.tasks)
 
     const dispatch = useDispatch()
@@ -47,8 +44,8 @@ const App = React.memo (() => {
         dispatch(addTaskAC(title, todoListId))
     },[dispatch])
 
-    const changeStatus= useCallback((taskId: string, isDone: boolean, todoListId: string) =>{
-        dispatch(changeTaskStatusAC(taskId, isDone, todoListId))
+    const changeStatus= useCallback((taskId: string, status: TaskStatuses, todoListId: string) =>{
+        dispatch(changeTaskStatusAC(taskId, status, todoListId))
     },[dispatch])
 
     const changeTaskTitle= useCallback((taskId: string, title: string, todoListId: string) =>{
