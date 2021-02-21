@@ -1,6 +1,6 @@
 import {todolistAPI, TodolistType} from "../../api/todolist-api";
 import {Dispatch} from "redux";
-import { SetAppStatusAC} from "../../app/app-reducer";
+import {SetAppStatusAC} from "../../app/app-reducer";
 
 type ActionType =
     | ReturnType<typeof RemoveTodolistAC>
@@ -9,7 +9,6 @@ type ActionType =
     | ReturnType<typeof ChangeTodoListFilterAC>
     | ReturnType<typeof setTodolistAC>
     | ReturnType<typeof SetAppStatusAC>
-
 
 const initialState: Array<TodolistDomainType> = []
 export type FilterValuesType = 'all' | 'active' | 'completed'
@@ -52,10 +51,10 @@ export const ChangeTodoListFilterAC = (filter: FilterValuesType, todoListId: str
 
 export const setTodolistAC = (todolist: Array<TodolistType>) => ({type: 'SET-TODOLIST', todolist} as const)
 
-export const fetchTodolistTC = () => (dispatch: Dispatch<ActionType>) => {
+export const fetchTodolistTC = () => (dispatch: Dispatch<ActionType>) => { debugger
     dispatch(SetAppStatusAC('loading'))
     todolistAPI.getTodolist()
-        .then((res) => {
+        .then((res) => { debugger
             dispatch(setTodolistAC(res.data))
             dispatch(SetAppStatusAC('succeeded'))
         })
