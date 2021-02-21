@@ -28,7 +28,7 @@ const App = React.memo(() => {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
-                { status === 'loading' && <LinearProgress/>}
+                {status === 'loading' && <LinearProgress/>}
             </AppBar>
             <Container fixed>
                 <TodoListsList/>

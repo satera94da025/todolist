@@ -5,7 +5,7 @@ import {
     addTodoListTC, ChangeTodoListFilterAC,
     changeTodoListTC,
     fetchTodolistTC, FilterValuesType,
-    RemoveTodolistAC,
+     removeTodolistTC,
     TodolistDomainType
 } from "./todolists-reducer";
 import {addTaskTC, removeTasksTC, TasksStateType, updateTaskTC} from "./tasks-reducer";
@@ -44,13 +44,12 @@ const TodoListsList: React.FC = () => {
     }, [dispatch])
 
     const removeTodoList = useCallback((id: string) => {
-        dispatch(RemoveTodolistAC(id))
+        dispatch(removeTodolistTC(id))
 
     }, [dispatch])
 
     const addTodoList = useCallback((title: string) => {
-        let action = addTodoListTC(title)
-        dispatch(action)
+        dispatch(addTodoListTC(title))
     }, [dispatch])
 
     const changeTodoListTitle = useCallback((title: string, todoListId: string) => {
