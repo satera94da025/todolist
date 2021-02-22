@@ -16,11 +16,13 @@ import {Todolist} from "./TodoList/Todolist";
 
 
 
+
 const TodoListsList: React.FC = () => {
 
 
     let todoLists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todoLists)
     let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -62,7 +64,7 @@ const TodoListsList: React.FC = () => {
 
     return <>
         <Grid container style={{padding: '20px'}}>
-            <AddItemForm addItem={addTodoList}/>
+            <AddItemForm addItem={addTodoList}  />
         </Grid>
         <Grid container spacing={3}>
             {
@@ -75,6 +77,7 @@ const TodoListsList: React.FC = () => {
                                     key={tl.id}
                                     id={tl.id}
                                     title={tl.title}
+                                    entityStatus={tl.entityStatus}
                                     tasks={taskForTodolist}
                                     removeTask={removeTask}
                                     removeTodoList={removeTodoList}
