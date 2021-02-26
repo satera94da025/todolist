@@ -14,6 +14,8 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
+import { Route, Switch, Redirect } from 'react-router-dom';
+import {Login} from "../features/Login/Login";
 
 const App = React.memo(() => {
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
@@ -33,7 +35,12 @@ const App = React.memo(() => {
             </AppBar>
             {status === 'loading' && <LinearProgress/>}
             <Container fixed>
-                <TodoListsList/>
+                <Switch>
+                    <Route exat path={'/'} render={()=> <TodoListsList/>}/>
+                    <Route  path={'/login'} render={()=> <Login/>}/>
+                    <Route path={ '*' } render={ () => <h1>404: PAGE NOT FOUND</h1> }/>
+                    <Redirect from={'*'} to={'/404'}/>
+                </Switch>
             </Container>
         </div>
     )

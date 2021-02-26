@@ -17,7 +17,7 @@ import {Todolist} from "./TodoList/Todolist";
 
 
 
-const TodoListsList: React.FC = () => {
+const TodoListsList: React.FC = React.memo(() => {
 
 
     let todoLists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todoLists)
@@ -71,8 +71,8 @@ const TodoListsList: React.FC = () => {
                 todoLists.map(tl => {
                     let taskForTodolist = tasks[tl.id]
 
-                    return (< Grid item>
-                            <Paper style={{padding: '10px'}}>
+                    return (< Grid item key={tl.id}>
+                            <Paper key={tl.id} style={{padding: '10px'}}>
                                 <Todolist
                                     key={tl.id}
                                     id={tl.id}
@@ -95,6 +95,6 @@ const TodoListsList: React.FC = () => {
             }
         </Grid>
     </>
-}
+})
 
 export default TodoListsList

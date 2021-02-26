@@ -146,7 +146,7 @@ export const updateTaskTC = (taskId: string, DomainModel: UpdateDomainTaskModelT
             status: task.status,
             ...DomainModel
         }).then(() => {
-            dispatch(updateTaskAC(taskId, {}, todolistId))
+            dispatch(updateTaskAC(taskId, DomainModel, todolistId))
             dispatch(SetAppStatusAC('succeeded'))
         }).catch((error) => {
             handleServerNetworkError(error,dispatch)

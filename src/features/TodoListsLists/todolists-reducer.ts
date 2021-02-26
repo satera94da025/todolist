@@ -68,7 +68,7 @@ export const setTodolistAC = (todolist: Array<TodolistType>) => ({type: 'SET-TOD
 export const fetchTodolistTC = () => (dispatch: Dispatch<ActionType>) => {
     dispatch(SetAppStatusAC('loading'))
     todolistAPI.getTodolist()
-        .then((res) => { debugger
+        .then((res) => {
             dispatch(setTodolistAC(res.data))
             dispatch(SetAppStatusAC('succeeded'))
         }).catch((error) => {
