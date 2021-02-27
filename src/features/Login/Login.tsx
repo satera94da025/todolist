@@ -29,6 +29,7 @@ export const Login = () => {
         },
         onSubmit: values => {
             alert(JSON.stringify(values));
+            formik.resetForm()
         },
     })
 
@@ -52,12 +53,15 @@ export const Login = () => {
                         <TextField
                             label="Email"
                             margin="normal"
+                            {...formik.getFieldProps('email')}
                         />
                         <TextField
                             type="password"
                             label="Password"
                             margin="normal"
+                            {...formik.getFieldProps('password')}
                         />
+                        {formik.handleBlur && formik.errors.email ? <div style={{color: 'red'}}> {formik.errors.email}</div> : null}
                         <FormControlLabel
                             label={'Remember me'}
                             control={<Checkbox />}
