@@ -1,10 +1,17 @@
-
-
 import React from 'react'
-import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
+import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@material-ui/core'
 import {useFormik} from "formik";
+import {useDispatch, useSelector} from "react-redux";
+import {loginTC} from "./auth-reducer";
+import {AppRootStateType} from "../../app/store";
+import {Redirect} from "react-router-dom";
 
 export const Login = () => {
+
+    const IsLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    const dispatch = useDispatch()
+
+
 
     type FormikErrorType = {
         email?: string
@@ -27,14 +34,15 @@ export const Login = () => {
             }
             return errors;
         },
-        onSubmit: values => {
-            alert(JSON.stringify(values));
+        onSubmit: (values) => {
             formik.resetForm()
-        },
+            dispatch(loginTC(values))
+        }
     })
 
-
-
+    if(IsLoggedIn){
+        return  <Redirect to={'/'}/>
+    }
     return <Grid container justify="center">
         <Grid item xs={4}>
             <form onSubmit={formik.handleSubmit}>
@@ -53,18 +61,20 @@ export const Login = () => {
                         <TextField
                             label="Email"
                             margin="normal"
-                            {...formik.getFieldProps('email')}
+                            {...formik.getFieldProps("email")}
                         />
                         <TextField
                             type="password"
                             label="Password"
                             margin="normal"
-                            {...formik.getFieldProps('password')}
+                            {...formik.getFieldProps("password")}
                         />
-                        {formik.handleBlur && formik.errors.email ? <div style={{color: 'red'}}> {formik.errors.email}</div> : null}
+                        {formik.touched.email && formik.errors.email ?
+                            <div style={{color: 'red'}}> {formik.errors.email}</div> : null}
                         <FormControlLabel
                             label={'Remember me'}
-                            control={<Checkbox />}
+                            control={<Checkbox/>}
+
                         />
                         <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
                     </FormGroup>

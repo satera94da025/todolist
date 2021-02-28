@@ -14,7 +14,7 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
-import { Route, Switch, Redirect } from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import {Login} from "../features/Login/Login";
 
 const App = React.memo(() => {
@@ -36,9 +36,9 @@ const App = React.memo(() => {
             {status === 'loading' && <LinearProgress/>}
             <Container fixed>
                 <Switch>
-                    <Route exact path={'/'} render={()=> <TodoListsList/>}/>
-                    <Route  path={'/login'} render={()=> <Login/>}/>
-                    <Route path={ '/404' } render={ () => <h1>404: PAGE NOT FOUND</h1> }/>
+                    <Route exact path={'/'} render={() => <TodoListsList/>}/>
+                    <Route path={'/login'} render={() => <Login/>}/>
+                    <Route path={'*'} render={() => <h1>404: PAGE NOT FOUND</h1>}/>
                     <Redirect from={'*'} to={'/404'}/>
                 </Switch>
             </Container>
