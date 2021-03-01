@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux'
-import {setAppErrorAC,  SetAppStatusAC} from '../../app/app-reducer'
+import { setAppErrorAC, setAppInitializedAC, SetAppStatusAC} from '../../app/app-reducer'
 import {authAPI, LoginParamsType} from "../../api/todolist-api";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
@@ -39,4 +39,4 @@ export const loginTC = (data: LoginParamsType ) => (dispatch: Dispatch<ActionsTy
 }
 
 
-type ActionsType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof SetAppStatusAC> | ReturnType<typeof setAppErrorAC>
+type ActionsType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof SetAppStatusAC> | ReturnType<typeof setAppErrorAC> |ReturnType<typeof setAppInitializedAC>

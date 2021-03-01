@@ -80,9 +80,19 @@ export type LoginParamsType = {
     captcha?: string
 }
 
+export type MeParamsType = {
+    id: number
+    email: string
+    login: string
+
+}
+
 export const authAPI = {
     login(data: LoginParamsType) {
         return instanceForAuth.post<ResponseType<{ userId: number }>>('login', data)
+    },
+    me() {
+        return instanceForAuth.get<ResponseType<{data: MeParamsType}>>('me')
     }
 }
 
