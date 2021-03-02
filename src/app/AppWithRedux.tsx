@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 
 
@@ -16,6 +16,7 @@ import {initializeAppTC, RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {Login} from "../features/Login/Login";
+import {logOutTC} from "../features/Login/auth-reducer";
 
 const App = React.memo(() => {
 
@@ -27,6 +28,12 @@ const App = React.memo(() => {
 
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+
+
+    const logOutHandler = useCallback(() => {
+        dispatch(logOutTC())
+    },[dispatch])
 
     if (!isInitialized) {
         return <div
@@ -47,7 +54,7 @@ const App = React.memo(() => {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    { isLoggedIn && <Button color="inherit" onClick={logOutHandler}>Log out</Button>}
                 </Toolbar>
             </AppBar>
             {status === 'loading' && <LinearProgress/>}
