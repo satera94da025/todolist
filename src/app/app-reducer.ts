@@ -36,13 +36,12 @@ export const setAppInitializedAC = (isInitialized: boolean) =>  ({type: 'APP/SET
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
         if (res.data.resultCode === 0) {
-            dispatch(setAppInitializedAC(true))
             dispatch(setIsLoggedInAC(true))
+            dispatch(setAppInitializedAC(true))
         } else {
-            dispatch(setAppInitializedAC(false))
-            dispatch(setIsLoggedInAC(false))
             handleServerAppError(res.data, dispatch)
         }
+        dispatch(setAppInitializedAC(true))
     }).catch((error) => {
         handleServerNetworkError(error, dispatch)
     })
