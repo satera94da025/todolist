@@ -45,7 +45,7 @@ export const Todolist = React.memo((props: PropsType) => {
     const tasks = tasksForTodoList.map(taskObj => <Task todoListId={props.id} changeStatus={props.changeStatus}
                                                    removeTask={props.removeTask} changeTaskTitle={props.changeTaskTitle}
                                                    task={taskObj}
-                                                   key={props.id}/>)
+                                                   key={taskObj.id}/>)
 
     const removeTodoList = useCallback(() => props.removeTodoList(props.id), [props.removeTodoList, props.id])
     const onClickHandler = useCallback(() => props.changeFilter('all', props.id), [props.changeFilter, props.id])
